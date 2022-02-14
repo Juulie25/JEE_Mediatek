@@ -9,13 +9,15 @@ CREATE TABLE user(
     Pseudo varchar(50),
     MotDePasse varchar(50),
     RoleUser varchar(50),
+    Age int,
     PRIMARY KEY(IdUser)
 ); 
 
 CREATE TABLE document(
     IdDoc int NOT NULL AUTO_INCREMENT,
     TypeDoc varchar(50), 
-    TitreDoc varchar(50), 
+    TitreDoc varchar(50),
+    AuteurDoc varchar(50), 
     Emprunt TINYINT,
     PRIMARY KEY(IdDoc)
 );
