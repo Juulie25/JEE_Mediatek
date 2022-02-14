@@ -30,6 +30,9 @@ CREATE TABLE emprunt(
 ALTER TABLE user
 ADD CONSTRAINT CK_User CHECK (RoleUser LIKE 'abonne' OR RoleUser LIKE 'bibliothecaire');
 
+ALTER TABLE document
+ADD CONSTRAINT CK_Doc CHECK (TypeDoc LIKE 'CD' OR TypeDoc LIKE 'DVD' OR TypeDoc LIKE 'Livre');
+
 ALTER TABLE emprunt
 ADD CONSTRAINT PK_Emprunt PRIMARY KEY(IdUser,IdDoc);
 
@@ -38,3 +41,15 @@ ADD CONSTRAINT FK_EmpruntUser FOREIGN KEY(IdUser) REFERENCES user(IdUser) ON DEL
 
 ALTER TABLE emprunt
 ADD CONSTRAINT FK_EmpruntDoc FOREIGN KEY(IdDoc) REFERENCES document(IdDoc) ON DELETE CASCADE; 
+
+
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ozdemir', 'Ilker', 'ilkerrgp951', '951javaee', 'abonne');
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Pessey', 'Julie', 'juuulie' , 'motdepasse', 'abonne');
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ouziri', 'Mourad', 'mOuziri', 'profJava', 'bibliothecaire');
+
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'SpiderMan - No way home', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'La petite sirène', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'Le monde ou rien', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'La machine', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Les misérables', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Le petit prince', 0);
