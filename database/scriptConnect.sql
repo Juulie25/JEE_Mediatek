@@ -49,9 +49,9 @@ INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ozdemir', '
 INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Pessey', 'Julie', 'juuulie' , 'motdepasse', 'abonne');
 INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ouziri', 'Mourad', 'mOuziri', 'profJava', 'bibliothecaire');
 
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'SpiderMan - No way home', 0);
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'La petite sirène', 0);
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'Le monde ou rien', 0);
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'La machine', 0);
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Les misérables', 0);
-INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Le petit prince', 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'SpiderMan - No way home','Marvel' 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('DVD', 'La petite sirène','Disney' 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'Le monde ou rien', 'PNL' 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('CD', 'La machine', 'Jul' 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Les misérables', 'Victor Hugo' 0);
+INSERT INTO document(TypeDoc, TitreDoc, Emprunt) VALUES ('Livre', 'Le petit prince', 'Antoine de Saint-Exupéry' 0);
