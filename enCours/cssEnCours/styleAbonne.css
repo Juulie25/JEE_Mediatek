@@ -33,4 +33,19 @@ h1 {
     text-decoration: underline;
 }
 
+.popup {
+    display: none;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    z-index: 1000;
+
+}
+
+.popup.active {
+    display: inline-block; 
+}
 
