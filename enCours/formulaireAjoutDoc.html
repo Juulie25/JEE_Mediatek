@@ -40,9 +40,44 @@
             </div>
 			
 			
-            <button type="Ajouter" class="btn btn-primary" id="btnAjout">Ajouter</button>
+            <button type="Ajouter" class="btn btn-primary" id="btnAjout" data-popup-ref="ajoutSuccess">Ajouter</button>
         </div>
     </form>
+
+    <div class="popup" data-popup-id="ajoutSuccess">
+        <div class="popup-content">
+             <h2>Nouveau document </h2>
+             <p>Vous avez bien ajouté à la Mediatek: </p>
+             <p>Harry Potter JK Rowling</p>
+             <button type="button" class="btn cancel" data-dismiss-popup>Fermer</button>
+        </div>
+    </div>
+    <script>
+         let btnPopup = document.querySelectorAll("[data-popup-ref]");
+
+         btnPopup.forEach( btn => {
+             btn.addEventListener('click', activePopup );
+
+             function activePopup(){
+                 let popupId = btn.getAttribute('data-popup-ref');
+                 let popup = document.querySelector(`[data-popup-id='${popupId}']`);
+                 let popupContent = popup.querySelector('.popup-content');
+                 let popupClose = popup.querySelectorAll('[data-dismiss-popup]');
+
+                 popupClose.forEach(btn => {
+                     btn.addEventListener("click", onPopupClose);
+                 });
+
+                 popup.classList.add('active');
+                 popupContent.classList.add('active');
+
+                 function onPopupClose(){
+                     popup.classList.remove('active');
+                     popupContent.classList.remove('active');
+                 };
+             }
+         });
+    </script>
 
 </body>
 </html>
