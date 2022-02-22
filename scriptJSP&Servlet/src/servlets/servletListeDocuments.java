@@ -42,23 +42,7 @@ public class servletListeDocuments extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "jdbc:mysql://localhost:3306/mediatek";
-		String user = "root";
-		String password = "";
-		
-		ResultSet docs;
-		ArrayList<Documents> documents = new ArrayList<>(); 
-		
-		try {
-			docs = ConnexionBDD.consulterDocuments(url, user, password);
-			documents = ConnexionBDD.listeDocuments(docs);
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Erreur : " + e);;
-		} 
-		
-		request.setAttribute("listeDocuments", documents);
-		RequestDispatcher d = request.getRequestDispatcher("../WebContent/htmlFiles/accueilBibliothecaire.jsp");
-		d.forward(request, response);
+
 	}
 
 }

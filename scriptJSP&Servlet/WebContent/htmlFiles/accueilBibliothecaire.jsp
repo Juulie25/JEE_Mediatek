@@ -1,16 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="document.Documents" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="persistance.ConnexionBDD" %>
+<%@ page import="java.sql.SQLException" %>
+
+
+
 <%
-	ArrayList<Documents> documents = (ArrayList<Documents>)request.getAttribute("listeDocuments");
-	String[] reponseTab = null; 
+	String url = "jdbc:mysql://localhost:3306/mediatek";
+	String user = "root";
+	String password = "";
+	
+	ResultSet docs;
+	ArrayList<Documents> documents = new ArrayList<>();
+	ArrayList<String> reponseTab = new ArrayList<>();
+	
+	try {
+		docs = ConnexionBDD.consulterDocuments(url, user, password);
+		documents = ConnexionBDD.listeDocuments(docs);
+	} catch (ClassNotFoundException | SQLException e) {
+		System.out.println("Erreur : " + e);;
+	} 
+	
 
 	for(int i = 0; i < documents.size(); i++){
 		if(documents.get(i).isEmprunt()) {
-			reponseTab[i] ="<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-danger\" disabled>Emprunté</button></td></tr>##";
+			reponseTab.add("<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-danger\" disabled>Emprunté</button></td></tr>##");
 		}
 		else {
-			reponseTab[i]="<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-success\" disabled>Disponible</button></td></tr>##";
+			reponseTab.add("<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-success\" disabled>Disponible</button></td></tr>##");
 		}
 	}
 %>
@@ -43,8 +62,8 @@
                 <p class="titreDiv">Documents de la Mediatek</p>
                 <table id="listeDocs">  
                     <tr><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
-                     <%for(int i = 0; i < reponseTab.length; i++){%>
-                    	<%=reponseTab[i]%>
+                     <%for(int i = 0; i < reponseTab.size(); i++){%>
+                    	<%= reponseTab.get(i)%>
                     <%} %>
                 </table>
            </div>		   

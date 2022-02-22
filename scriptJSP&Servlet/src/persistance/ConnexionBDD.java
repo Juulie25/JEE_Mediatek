@@ -52,7 +52,22 @@ public class ConnexionBDD {
 		String password = "";
 		
 		ResultSet docs  = consulterDocuments(url, user, password); 
-		System.out.println(listeDocuments(docs));
+		ArrayList<Documents> documents = listeDocuments(docs);
+		
+		ArrayList<String> reponseTab = new ArrayList<>();
+		
+		for(int i = 0; i < documents.size(); i++){
+			if(documents.get(i).isEmprunt()) {
+				reponseTab.add("<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-danger\" disabled>Emprunté</button></td></tr>##");
+			}
+			else {
+				reponseTab.add("<tr><th>"+ documents.get(i).getType()+"</th><th>"+documents.get(i).getTitre()+"</th><th>"+documents.get(i).getAuteur()+"</th><td><button type=\"button\" class=\"btn btn-success\" disabled>Disponible</button></td></tr>##");
+			}
+		}
+		
+		for(int i = 0; i < reponseTab.size(); i++){
+			System.out.println(reponseTab.get(i));
+		}
 	}
 
 }
