@@ -1,0 +1,72 @@
+.navbar-text {
+    font-size: 22px;
+    margin: 15px 0px; 
+    padding: 10px 15px; 
+}
+
+.container {
+    border: 1px solid silver; 
+    border-radius: 5px;
+    height: auto; 
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.titreDiv {
+    margin-bottom: 3%;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+#listeDocs {
+    text-align: left;
+}
+
+table {
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.popup {
+    display: none;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+}
+
+.popup.active {
+    display: inline-block; 
+}
+
+.popup-content {
+    position: fixed; 
+    left: 50%;
+    top: 10%; 
+    transform: translateX(-50%);
+    height: auto; 
+    width: 40%;
+    border: 1px solid silver; 
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    background-color: white;
+    align-items: center;
+    padding : 2%;
+}
+
+.popup-content.active {
+    opacity: 1;
+}
+
+

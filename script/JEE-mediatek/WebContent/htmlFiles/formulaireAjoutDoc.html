@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Bienvenue à la Médiatek</title>
+  <link rel="stylesheet" href="css/styleAjoutDoc.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="script.js"></script>
+</head>
+<body>
+    <h1 class="txt"><u>Ajout de document à la Médiatek</u></h1>
+
+    <form>
+        <div id="formulaire">
+		<p class = "txt">Quel type de document voulez vous ajouter ?</p>
+		
+			<div>
+			  <input type="radio" id="caseDVD" name="groupe1" value="caseDVD">
+			  <label for="caseDVD">DVD</label>
+			
+			  <input type="radio" id="caseCD" name="groupe1" value="caseCD">
+			  <label for="caseCD">CD</label>
+
+			
+			  <input type="radio" id="caseLivre" name="groupe1" value="caseLivre">
+			  <label for="caseLivre">Livre</label>
+			</div>		
+		
+		
+            <div class="form-group">
+                <label for="labelTitre" class="txt">Titre</label>
+                <input class="form-control" id="titre"  placeholder="Entrez le titre" required>
+            
+            </div>
+
+            <div class="form-group">
+                <label for="labetAuteur" class="txt">Auteur</label>
+                <input class="form-control" id="auteur"  placeholder="Entrez l'auteur du document" required>
+            
+            </div>
+			
+			
+            <button type="Ajouter" class="btn btn-primary" id="btnAjout" data-popup-ref="ajoutSuccess">Ajouter</button>
+        </div>
+    </form>
+
+    <div class="popup" data-popup-id="ajoutSuccess">
+        <div class="popup-content">
+             <h2>Nouveau document </h2>
+             <p>Vous avez bien ajouté à la Mediatek: </p>
+             <p>Harry Potter JK Rowling</p>
+             <button type="button" class="btn cancel" data-dismiss-popup>Fermer</button>
+        </div>
+    </div>
+    <script>
+         let btnPopup = document.querySelectorAll("[data-popup-ref]");
+
+         btnPopup.forEach( btn => {
+             btn.addEventListener('click', activePopup );
+
+             function activePopup(){
+                 let popupId = btn.getAttribute('data-popup-ref');
+                 let popup = document.querySelector(`[data-popup-id='${popupId}']`);
+                 let popupContent = popup.querySelector('.popup-content');
+                 let popupClose = popup.querySelectorAll('[data-dismiss-popup]');
+
+                 popupClose.forEach(btn => {
+                     btn.addEventListener("click", onPopupClose);
+                 });
+
+                 popup.classList.add('active');
+                 popupContent.classList.add('active');
+
+                 function onPopupClose(){
+                     popup.classList.remove('active');
+                     popupContent.classList.remove('active');
+                 };
+             }
+         });
+    </script>
+
+</body>
+</html>
