@@ -19,6 +19,7 @@ CREATE TABLE document(
     TitreDoc varchar(50),
     AuteurDoc varchar(50), 
     Emprunt TINYINT,
+    Adulte TINYINT,
     PRIMARY KEY(IdDoc)
 );
 
@@ -45,13 +46,13 @@ ALTER TABLE emprunt
 ADD CONSTRAINT FK_EmpruntDoc FOREIGN KEY(IdDoc) REFERENCES document(IdDoc) ON DELETE CASCADE; 
 
 
-INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ozdemir', 'Ilker', 'ilkerrgp951', '951javaee', 'abonne');
-INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Pessey', 'Julie', 'juuulie' , 'motdepasse', 'abonne');
-INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser) VALUES ('Ouziri', 'Mourad', 'mOuziri', 'profJava', 'bibliothecaire');
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse,  RoleUser, Age) VALUES ('Ozdemir', 'Ilker', 'ilkerrgp951','951javaee', 'abonne', 12);
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser, Age) VALUES ('Pessey', 'Julie', 'juuulie', 'motdepasse', 'abonne', 19);
+INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser, Age) VALUES ('Ouziri', 'Mourad', 'mouziri', 'profJava', 'bibliothecaire', 35);
 
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('DVD', 'SpiderMan - No way home','Marvel', 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('DVD', 'La petite sirène','Disney', 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('CD', 'Le monde ou rien', 'PNL', 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('CD', 'La machine', 'Jul', 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('Livre', 'Les misérables', 'Victor Hugo', 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt) VALUES ('Livre', 'Le petit prince', 'Antoine de Saint-Exupéry', 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'SpiderMan - No way home','Marvel', 0, 1);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'La petite sirène','Disney', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'Le monde ou rien', 'PNL', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'La machine', 'Jul', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Les misérables', 'Victor Hugo', 0, 1);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Le petit prince', 'Antoine de Saint-Exupéry', 0, 0);
