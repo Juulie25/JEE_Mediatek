@@ -41,17 +41,13 @@
                 <p class="titreDiv">Documents de la Mediatek</p>
                 <table id="listeDocs"> 
                     <tr><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
-
 					<% for(int i = 0; i < documents.size(); i++){ %> 
-					 <% if(documents.get(i).disponible()) { %> 
-					 <tr><th><%=documents.get(i).getType() %></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><button type="button" class="btn btn-success" disabled>Disponible</button></td></tr>
-					 <%}else{%>
-					 <tr><th><%=documents.get(i).getType() %></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><button type="button" class="btn btn-danger" disabled>Emprunté</button></td></tr>
-					 <%} %>
-					 
+						<% if(documents.get(i).disponible()) { %> 
+					 		<tr><th><%=documents.get(i).getType() %></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><button type="button" class="btn btn-success" disabled>Disponible</button></td></tr>
+					 	<%}else{%>
+					 		<tr><th><%=documents.get(i).getType() %></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><button type="button" class="btn btn-danger" disabled>Emprunté</button></td></tr>
+					 	<%} %>
 					<%}%> 
-
-
                 </table>
            </div>		   
     </body>

@@ -1,9 +1,14 @@
 <%@ page import="servlets.servletGereSession" %>
 <%@ page import="utilisateur.UtilisateurMediatek" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="document.DocumentsMediatek" %>
+<%@ page import="persistance.MediathequeData" %>
 
 <%
 	UtilisateurMediatek utilisateur = (UtilisateurMediatek) request.getAttribute("utilisateur");
 	String pseudo = utilisateur.name();
+	
+	ArrayList<DocumentsMediatek> documents = MediathequeData.consulterDocumentsEmprunt(pseudo);
 %>
 <!doctype html>
 <html lang="fr">
@@ -33,18 +38,9 @@
                 <p class="titreDiv">Vos emprunts</p>
                 <table id="listeDocs">  
                     <tr><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
-                    <tr>
-                        <td>DVD</td>
-                        <td>La petite sirène</td>
-                        <td>Disney</td>
-                        <td><button type="button" class="btn btn-success" data-popup-ref="rendu">Rendre</button></td>
-                    </tr>
-                    <tr>
-                        <td>Livre</td>
-                        <td>Le petit prince</td>
-                        <td>Antoine de Saint-Exupéry</td>
-                        <td><button type="button" class="btn btn-success" data-popup-ref="rendu">Rendre</button></td>
-                    </tr>
+                    <% for(int i = 0; i < documents.size(); i++){ %> 
+						<tr><th><%=documents.get(i).getType() %></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><button type="button" class="btn btn-success">Rendre</button></td></tr>
+					<%}%> 
                 </table>
            </div>
 

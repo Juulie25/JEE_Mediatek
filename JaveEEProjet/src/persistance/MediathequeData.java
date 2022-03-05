@@ -121,14 +121,19 @@ public class MediathequeData implements PersistentMediatheque {
 
 	}
 	
-	public static ArrayList<DocumentsMediatek> consulterDocumentsEmprunt(UtilisateurMediatek utilisateur) throws ClassNotFoundException, SQLException{
+	public static ArrayList<DocumentsMediatek> consulterDocumentsEmprunt(String pseudo) throws ClassNotFoundException, SQLException{
 		
 		Connection connect = connexion(); 
 		
-		String allDocuments = "SELECT * FROM document "; 
-		Statement st = connect.createStatement();
-		ResultSet docs = st.executeQuery(allDocuments);
-		ArrayList<DocumentsMediatek> listeDocs = new ArrayList<>();
+		String allDocuments = "SELECT d.TypeDoc, d.TitreDoc, d.AuteurDoc, d.Emprunt, d.Adulte FROM emprunt e,user u, document d WHERE e.IdUser = u.IdUser AND e.IdDoc = d.IdDoc AND u.Pseudo=?;";
+
+		PreparedStatement st = null;
+		st = connect.prepareStatement(allDocuments);
+		st.setString(1, pseudo);
+		
+		ResultSet docs = st.executeQuery();
+		
+		ArrayList<DocumentsMediatek> listeDocsEmprunt = new ArrayList<>();
 		
 		while(docs.next()) {
 			String typeDoc = docs.getString("TypeDoc");
@@ -137,9 +142,9 @@ public class MediathequeData implements PersistentMediatheque {
 			Boolean emprunt = docs.getBoolean("Emprunt");
 			Boolean adulte = docs.getBoolean("Adulte");
 			
-			listeDocs.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+			listeDocsEmprunt.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 		}
-		return listeDocs;
+		return listeDocsEmprunt;
 	}
 	
 	
