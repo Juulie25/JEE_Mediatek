@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utilisateur.UtilisateurMediatek;
 /**
  * Servlet implementation class sevletFormulaire
  */
@@ -39,9 +40,19 @@ public class servletFormulaire extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
+		RequestDispatcher d;
 		request.setAttribute("utilisateur", request.getSession().getAttribute("utilisateur"));
-        d.forward(request, response);
+		
+		UtilisateurMediatek utilisateur = (UtilisateurMediatek) request.getAttribute("utilisateur");
+		
+		if(utilisateur.isBibliothecaire()) {
+			d = request.getRequestDispatcher("./htmlFiles/accueilBibliothecaire.jsp");
+			d.forward(request, response);
+		}else {
+			d = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
+			d.forward(request, response);
+		}
+        
 	}
 
 	/**
