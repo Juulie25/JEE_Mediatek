@@ -5,13 +5,15 @@ import mediatek2022.Utilisateur;
 
 public class DocumentsMediatek implements Document {
 	
+	private int idDoc; 
 	private String type; 
 	private String titre; 
 	private String auteur; 
 	private boolean emprunt; 
 	private boolean adulte;
 	
-	public DocumentsMediatek(String typeD, String titreD, String auteurD, boolean empruntD, boolean adulteD) {
+	public DocumentsMediatek(int idDocD, String typeD, String titreD, String auteurD, boolean empruntD, boolean adulteD) {
+		this.idDoc = idDocD; 
 		this.type = typeD; 
 		this.titre = titreD; 
 		this.auteur = auteurD; 
@@ -53,14 +55,15 @@ public class DocumentsMediatek implements Document {
 
 	@Override
 	public void emprunt(Utilisateur u) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void retour() {
-		// TODO Auto-generated method stub
+		//modifie emprunt -> supprimer la ligne de l'emprunt 
 		
+		//modifie document -> passer à 0 l'emprunt 
 	}
 	
 	

@@ -29,7 +29,32 @@ public class MediathequeData implements PersistentMediatheque {
 	// renvoie la liste de tous les documents disponibles de la médiathèque
 	@Override
 	public List<Document> tousLesDocumentsDisponibles() {
-		return null;
+		Connection connect;
+		ArrayList<Document> listeDocs = new ArrayList<>();
+		
+		try {
+			connect = connexion();
+			String allDocuments = "SELECT * FROM document WHERE emprunt=0;"; 
+			Statement st = connect.createStatement();
+			ResultSet docs = st.executeQuery(allDocuments);
+			
+			
+			while(docs.next()) {
+				int idDoc = docs.getInt("IdDoc");
+				String typeDoc = docs.getString("TypeDoc");
+				String titreDoc = docs.getString("TitreDoc");
+				String auteurDoc = docs.getString("AuteurDoc");
+				Boolean emprunt = docs.getBoolean("Emprunt");
+				Boolean adulte = docs.getBoolean("Adulte");
+				
+				listeDocs.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.err.println("Erreur lors de l'execution de la requête " + e);
+		} 
+		
+		return listeDocs;
+		
 	}
 
 	// va récupérer le User dans la BD et le renvoie
@@ -75,7 +100,32 @@ public class MediathequeData implements PersistentMediatheque {
 	// si pas trouvé, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
-		return null;
+		Document document = null; 
+		Connection connect;
+		try {
+			connect = connexion();
+			String getDoc = "SELECT * FROM document WHERE IdDoc=?"; 
+			PreparedStatement st = null;
+			st = connect.prepareStatement(getDoc);
+			st.setInt(1, numDocument);
+					
+			ResultSet doc = st.executeQuery();
+			while(doc.next()) {
+				int idDoc = doc.getInt("IdDoc");
+				String typeDoc = doc.getString("TypeDoc");
+				String titreDoc = doc.getString("TitreDoc");
+				String auteurDoc = doc.getString("AuteurDoc");
+				Boolean emprunt = doc.getBoolean("Emprunt");
+				Boolean adulte = doc.getBoolean("Adulte");
+				
+				document = new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte );
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.err.println("Erreur lors de l'execution de la requete " + e);
+		} 
+		
+		return document; 
+		
 	}
 
 	@Override
@@ -83,6 +133,24 @@ public class MediathequeData implements PersistentMediatheque {
 		// args[0] -> le titre
 		// args [1] --> l'auteur
 		// etc... variable suivant le type de document
+		
+		Connection connect;
+		try {
+			connect = connexion();
+			String nouveauDocument = "INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES (?, ?, ?, ?, ?);"; 
+			PreparedStatement st = null;
+			st = connect.prepareStatement(nouveauDocument);
+			st.setString(1, (String) args[0]);
+			st.setString(2, (String) args[1]);
+			st.setString(3, (String) args[2]);
+			st.setBoolean(4, (boolean) args[3]);
+			st.setBoolean(5, (boolean) args[4]);
+
+			ResultSet addDoc = st.executeQuery();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			System.err.println("Erreur lors de l'execution de la requete " + e);
+		} 
 	}
 	
 	public static Connection connexion () throws ClassNotFoundException, SQLException {
@@ -100,7 +168,6 @@ public class MediathequeData implements PersistentMediatheque {
 	
 
 	public static ArrayList<DocumentsMediatek> consulterDocuments() throws ClassNotFoundException, SQLException {
-	
 		Connection connect = connexion(); 
 		
 		String allDocuments = "SELECT * FROM document"; 
@@ -109,23 +176,25 @@ public class MediathequeData implements PersistentMediatheque {
 		ArrayList<DocumentsMediatek> listeDocs = new ArrayList<>();
 		
 		while(docs.next()) {
+			int idDoc = docs.getInt("IdDoc");
 			String typeDoc = docs.getString("TypeDoc");
 			String titreDoc = docs.getString("TitreDoc");
 			String auteurDoc = docs.getString("AuteurDoc");
 			Boolean emprunt = docs.getBoolean("Emprunt");
 			Boolean adulte = docs.getBoolean("Adulte");
 			
-			listeDocs.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+			listeDocs.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 		}
 		return listeDocs;
 
 	}
 	
+	//Liste des documents empruntés par un utilisateur
 	public static ArrayList<DocumentsMediatek> consulterDocumentsEmprunt(String pseudo) throws ClassNotFoundException, SQLException{
 		
 		Connection connect = connexion(); 
 		
-		String allDocuments = "SELECT d.TypeDoc, d.TitreDoc, d.AuteurDoc, d.Emprunt, d.Adulte FROM emprunt e,user u, document d WHERE e.IdUser = u.IdUser AND e.IdDoc = d.IdDoc AND u.Pseudo=?;";
+		String allDocuments = "SELECT d.IdDoc, d.TypeDoc, d.TitreDoc, d.AuteurDoc, d.Emprunt, d.Adulte FROM emprunt e,user u, document d WHERE e.IdUser = u.IdUser AND e.IdDoc = d.IdDoc AND u.Pseudo=?;";
 
 		PreparedStatement st = null;
 		st = connect.prepareStatement(allDocuments);
@@ -136,39 +205,17 @@ public class MediathequeData implements PersistentMediatheque {
 		ArrayList<DocumentsMediatek> listeDocsEmprunt = new ArrayList<>();
 		
 		while(docs.next()) {
+			Integer idDoc = docs.getInt("IdDoc");
 			String typeDoc = docs.getString("TypeDoc");
 			String titreDoc = docs.getString("TitreDoc");
 			String auteurDoc = docs.getString("AuteurDoc");
 			Boolean emprunt = docs.getBoolean("Emprunt");
 			Boolean adulte = docs.getBoolean("Adulte");
 			
-			listeDocsEmprunt.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+			listeDocsEmprunt.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 		}
 		return listeDocsEmprunt;
 	}
-	
-	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		
-	
-		ArrayList<DocumentsMediatek> documents = consulterDocuments();
-		
-		ArrayList<String> reponseTab = new ArrayList<>();
-		
-		for(int i = 0; i < documents.size(); i++){
-			if(documents.get(i).disponible()) {
-				reponseTab.add(documents.get(i).getType()+ " - "+ documents.get(i).getTitre()+" - "+documents.get(i).getAuteur() +" - "+ documents.get(i).disponible());
-			}
-			else {
-				reponseTab.add(documents.get(i).getType()+ " - "+documents.get(i).getTitre()+" - "+documents.get(i).getAuteur() + " - "+ documents.get(i).disponible());
-			}
-		}
-		
-		for(int i = 0; i < reponseTab.size(); i++){
-			System.out.println(reponseTab.get(i));
-		}
-	}
-
 
 }
 
