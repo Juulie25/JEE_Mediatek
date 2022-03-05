@@ -6,10 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import utilisateur.UtilisateurMediatek;
 
-import document.Documents;
+import document.DocumentsMediatek;
 import mediatek2022.*;
 
 // classe mono-instance  dont l'unique instance est connue de la médiatheque
@@ -35,13 +36,11 @@ public class MediathequeData implements PersistentMediatheque {
 	// si pas trouvé, renvoie null
 	@Override
 	public UtilisateurMediatek getUser(String login, String password) {
-		String url = "jdbc:mysql://localhost:3306/mediatek";
-		String user = "root";
-		String motdepasse = "";
+
 		UtilisateurMediatek utilisateur = null;
 		
 		try {
-			Connection connect = connexion(url, user, motdepasse);
+			Connection connect = connexion();
 
 			String getUser = "SELECT * FROM user WHERE Pseudo=? AND MotDePasse=?;"; 
 			PreparedStatement st = null;
@@ -86,7 +85,11 @@ public class MediathequeData implements PersistentMediatheque {
 		// etc... variable suivant le type de document
 	}
 	
-	public static Connection connexion (String url, String user, String password) throws ClassNotFoundException, SQLException {
+	public static Connection connexion () throws ClassNotFoundException, SQLException {
+		String url = "jdbc:mysql://localhost:3306/mediatek";
+		String user = "root";
+		String password = "";
+		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection connect;
 		connect = DriverManager.getConnection(url, user, password);
@@ -96,15 +99,71 @@ public class MediathequeData implements PersistentMediatheque {
 	
 	
 
-	public static ResultSet consulterDocuments(String url, String user, String password) throws ClassNotFoundException, SQLException {
-		Connection connect = connexion(url, user, password); 
+	public static ArrayList<DocumentsMediatek> consulterDocuments() throws ClassNotFoundException, SQLException {
+	
+		Connection connect = connexion(); 
 		
 		String allDocuments = "SELECT * FROM document"; 
 		Statement st = connect.createStatement();
-		ResultSet documents = st.executeQuery(allDocuments);
+		ResultSet docs = st.executeQuery(allDocuments);
+		ArrayList<DocumentsMediatek> listeDocs = new ArrayList<>();
 		
-		return documents;
+		while(docs.next()) {
+			String typeDoc = docs.getString("TypeDoc");
+			String titreDoc = docs.getString("TitreDoc");
+			String auteurDoc = docs.getString("AuteurDoc");
+			Boolean emprunt = docs.getBoolean("Emprunt");
+			Boolean adulte = docs.getBoolean("Adulte");
+			
+			listeDocs.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+		}
+		return listeDocs;
+
 	}
+	
+	public static ArrayList<DocumentsMediatek> consulterDocumentsEmprunt(UtilisateurMediatek utilisateur) throws ClassNotFoundException, SQLException{
+		
+		Connection connect = connexion(); 
+		
+		String allDocuments = "SELECT * FROM document "; 
+		Statement st = connect.createStatement();
+		ResultSet docs = st.executeQuery(allDocuments);
+		ArrayList<DocumentsMediatek> listeDocs = new ArrayList<>();
+		
+		while(docs.next()) {
+			String typeDoc = docs.getString("TypeDoc");
+			String titreDoc = docs.getString("TitreDoc");
+			String auteurDoc = docs.getString("AuteurDoc");
+			Boolean emprunt = docs.getBoolean("Emprunt");
+			Boolean adulte = docs.getBoolean("Adulte");
+			
+			listeDocs.add(new DocumentsMediatek(typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
+		}
+		return listeDocs;
+	}
+	
+	
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		
+	
+		ArrayList<DocumentsMediatek> documents = consulterDocuments();
+		
+		ArrayList<String> reponseTab = new ArrayList<>();
+		
+		for(int i = 0; i < documents.size(); i++){
+			if(documents.get(i).disponible()) {
+				reponseTab.add(documents.get(i).getType()+ " - "+ documents.get(i).getTitre()+" - "+documents.get(i).getAuteur() +" - "+ documents.get(i).disponible());
+			}
+			else {
+				reponseTab.add(documents.get(i).getType()+ " - "+documents.get(i).getTitre()+" - "+documents.get(i).getAuteur() + " - "+ documents.get(i).disponible());
+			}
+		}
+		
+		for(int i = 0; i < reponseTab.size(); i++){
+			System.out.println(reponseTab.get(i));
+		}
+	}
+
 
 }
 
