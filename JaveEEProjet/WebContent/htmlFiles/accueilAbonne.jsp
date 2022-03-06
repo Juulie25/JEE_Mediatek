@@ -14,11 +14,14 @@
 	ArrayList<DocumentsMediatek> documents = MediathequeData.consulterDocumentsEmprunt(pseudo);
 	List<Document> documentsDispo = Mediatheque.getInstance().tousLesDocumentsDisponibles();
 	
-	ArrayList<DocumentsMediatek> documentsAEmprunter = new ArrayList<>();
+	String sb="";
 	
 	
+	for(Document d: documentsDispo){
+		
+		sb+=d;
+	}
 	
-
 %>
 <!doctype html>
 <html lang="fr">
@@ -40,14 +43,16 @@
                 <p class="navbar-text"><%= pseudo%></p>
             </ul>
         </nav>
+
           <h1>Que voulez-vous faire ? </h1>
             <div class="container">
                 <p class="titreDiv">Effectuer un emprunt </p>
                 <table id="listeDocs">  
-					<tr><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
-                    <% for(int i = 0; i < documentsAEmprunter.size(); i++){ %> 
-						<tr><th><%= documentsAEmprunter.get(i).getType()%></th><th><%=documentsAEmprunter.get(i).getTitre() %></th><th><%= documentsAEmprunter.get(i).getAuteur()%></th><td><button type="button" class="btn btn-success">Rendre</button></td></tr>
+					<tr><th>ID Document</th><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
+                    <% for(int i = 0; i < documentsDispo.size()*6; i = i+6){ %> 
+                    	<tr><th><%=sb.split("/ ")[i]%></th><th><%= sb.split("/ ")[i+1]%></th><th><%=sb.split("/ ")[i+2]%></th><th><%= sb.split("/ ")[i+3]%></th><td><form action="./servletRendre" method="post"><button type="button" class="btn btn-primary">Emprunter</button></form></td></tr>
 					<%}%> 					
+							
                 </table>
            </div>
            <div class="container">
@@ -55,7 +60,7 @@
                 <table id="listeDocs">  
                     <tr><th>ID Document</th><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
                     <% for(int i = 0; i < documents.size(); i++){ %> 
-						<tr><th><%=documents.get(i).getIdDoc()%></th><th><%= documents.get(i).getType()%></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><form action="./servletRendre" method="post"><button name="<%=documents.get(i).getIdDoc() %>" type="button" class="btn btn-success">Rendre</button></form></td></tr>
+						<tr><th><%=documents.get(i).getIdDoc()%></th><th><%= documents.get(i).getType()%></th><th><%=documents.get(i).getTitre() %></th><th><%= documents.get(i).getAuteur()%></th><td><form action="./servletRendre" method="post"><input id="hidden" style="display&#58;none" name=<%DocumentsMediatek d = documents.get(i); %> type="hidden" ><button type="button" class="btn btn-success">Rendre</button></form></td></tr>
 					<%}%> 
                 </table>
            </div>

@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import document.DocumentsMediatek;
 import mediatek2022.Document;
 import mediatek2022.Mediatheque;
-import utilisateur.UtilisateurMediatek;
+
 
 /**
  * Servlet implementation class servletRendre
@@ -38,13 +39,9 @@ public class servletRendre extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		request.getParameter("updateSubmit");
-		request.getParameterValues("updateSubmit");
-		request.getAttribute("updateSubmit");
-		
-		int IdDoc= request.getParameter();
+		 String docARendre = request.getParameter("nomDocARendre");
+		 	 
+	     
 	}
 
 }

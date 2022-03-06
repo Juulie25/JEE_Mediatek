@@ -8,6 +8,7 @@ import mediatek2022.Document;
 import mediatek2022.Utilisateur;
 import persistance.MediathequeData;
 
+
 public class DocumentsMediatek implements Document {
 	private int idDoc;
 	private String type; 
@@ -55,8 +56,8 @@ public class DocumentsMediatek implements Document {
 
 	@Override
 	public String toString() {
-		return "[type=" + type + ", titre=" + titre + ", auteur=" + auteur + ", emprunt=" + emprunt
-				+ ", adulte=" + adulte + "]";
+		return  idDoc + "/ " + type + "/ " + titre + "/ " + auteur + "/ " + emprunt
+				+ "/ " + adulte + "/ ";
 	}
 
 
