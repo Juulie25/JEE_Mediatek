@@ -13,8 +13,8 @@ import utilisateur.UtilisateurMediatek;
 import document.DocumentsMediatek;
 import mediatek2022.*;
 
-// classe mono-instance  dont l'unique instance est connue de la médiatheque
-// via une auto-déclaration dans son bloc static
+// classe mono-instance  dont l'unique instance est connue de la mï¿½diatheque
+// via une auto-dï¿½claration dans son bloc static
 
 public class MediathequeData implements PersistentMediatheque {
 
@@ -26,7 +26,7 @@ public class MediathequeData implements PersistentMediatheque {
 	private MediathequeData() {
 	}
 
-	// renvoie la liste de tous les documents disponibles de la médiathèque
+	// renvoie la liste de tous les documents disponibles de la mï¿½diathï¿½que
 	@Override
 	public List<Document> tousLesDocumentsDisponibles() {
 		Connection connect;
@@ -50,15 +50,15 @@ public class MediathequeData implements PersistentMediatheque {
 				listeDocs.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			System.err.println("Erreur lors de l'execution de la requête " + e);
+			System.err.println("Erreur lors de l'execution de la requï¿½te " + e);
 		} 
 		
 		return listeDocs;
 		
 	}
 
-	// va récupérer le User dans la BD et le renvoie
-	// si pas trouvé, renvoie null
+	// va rï¿½cupï¿½rer le User dans la BD et le renvoie
+	// si pas trouvï¿½, renvoie null
 	@Override
 	public UtilisateurMediatek getUser(String login, String password) {
 
@@ -95,9 +95,9 @@ public class MediathequeData implements PersistentMediatheque {
 		return utilisateur;
 	}
 
-	// va récupérer le document de numÃ©ro numDocument dans la BD
+	// va rï¿½cupï¿½rer le document de numÃ©ro numDocument dans la BD
 	// et le renvoie
-	// si pas trouvé, renvoie null
+	// si pas trouvï¿½, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
 		Document document = null; 
@@ -134,19 +134,29 @@ public class MediathequeData implements PersistentMediatheque {
 		// args [1] --> l'auteur
 		// etc... variable suivant le type de document
 		
+		String typeNom = "";
+		
+		switch(type) {
+		case(1): typeNom = "DVD"; break;
+		case(2): typeNom = "CD"; break;
+		case(3): typeNom = "Livre"; break;
+		}
+		
+		for(int i = 0; i < args.length; i++){
+			System.out.println(args[i]);
+			}
+		
 		Connection connect;
 		try {
 			connect = connexion();
-			String nouveauDocument = "INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES (?, ?, ?, ?, ?);"; 
-			PreparedStatement st = null;
-			st = connect.prepareStatement(nouveauDocument);
-			st.setString(1, (String) args[0]);
-			st.setString(2, (String) args[1]);
-			st.setString(3, (String) args[2]);
-			st.setBoolean(4, (boolean) args[3]);
-			st.setBoolean(5, (boolean) args[4]);
+			
+			PreparedStatement st = connect.prepareStatement("INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES (?, ?, ?, 0, ?);");
+			st.setString(1, typeNom);
+			st.setString(2, (String) args[0]);
+			st.setString(3, (String) args[1]);
+			st.setBoolean(4, (boolean) args[2]);
 
-			ResultSet addDoc = st.executeQuery();
+	        st.executeUpdate();
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution de la requete " + e);
@@ -189,7 +199,7 @@ public class MediathequeData implements PersistentMediatheque {
 
 	}
 	
-	//Liste des documents empruntés par un utilisateur
+	//Liste des documents empruntï¿½s par un utilisateur
 	public static ArrayList<DocumentsMediatek> consulterDocumentsEmprunt(String pseudo) throws ClassNotFoundException, SQLException{
 		
 		Connection connect = connexion(); 
@@ -216,6 +226,8 @@ public class MediathequeData implements PersistentMediatheque {
 		}
 		return listeDocsEmprunt;
 	}
+	
+
 
 }
 

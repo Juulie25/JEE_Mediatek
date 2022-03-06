@@ -23,9 +23,9 @@
                 <input type="password" class="form-control" id="motdepasse" name="motdepasse" placeholder="Mot de Passe" required>
             </div>
            
-            <button type="submit class="btn btn-primary">Connrxion</button>
+            <button type="submit class="btn btn-primary">Connexion</button>
         </div>
     </form>
-    <p class="txt">La bibliothÃ¨que MÃ©diatek vous acceuille du lundi au vendredi de 9h Ã  19h, et le samedi de 10h Ã  17h.</p>
+    <p class="txt">La bibliothèque Mediatek vous acceuille du lundi au vendredi de 9h à  19h, et le samedi de 10h à 17h.</p>
 </body>
 </html>

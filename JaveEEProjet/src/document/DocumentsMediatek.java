@@ -1,11 +1,15 @@
 package document;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import mediatek2022.Document;
 import mediatek2022.Utilisateur;
+import persistance.MediathequeData;
 
 public class DocumentsMediatek implements Document {
-	
-	private int idDoc; 
+	private int idDoc;
 	private String type; 
 	private String titre; 
 	private String auteur; 
@@ -13,7 +17,7 @@ public class DocumentsMediatek implements Document {
 	private boolean adulte;
 	
 	public DocumentsMediatek(int idDocD, String typeD, String titreD, String auteurD, boolean empruntD, boolean adulteD) {
-		this.idDoc = idDocD; 
+		this.idDoc = idDocD;
 		this.type = typeD; 
 		this.titre = titreD; 
 		this.auteur = auteurD; 
@@ -22,6 +26,10 @@ public class DocumentsMediatek implements Document {
 		
 	}
 
+	public int getIdDoc() {
+		return idDoc;
+	}
+	
 	public String getType() {
 		return type;
 	}
@@ -47,7 +55,7 @@ public class DocumentsMediatek implements Document {
 
 	@Override
 	public String toString() {
-		return "Documents [type=" + type + ", titre=" + titre + ", auteur=" + auteur + ", emprunt=" + emprunt
+		return "[type=" + type + ", titre=" + titre + ", auteur=" + auteur + ", emprunt=" + emprunt
 				+ ", adulte=" + adulte + "]";
 	}
 
@@ -55,15 +63,36 @@ public class DocumentsMediatek implements Document {
 
 	@Override
 	public void emprunt(Utilisateur u) throws Exception {
-		
-		
+		try {
+			Connection connect = MediathequeData.connexion();
+			
+			PreparedStatement st = connect.prepareStatement("UPDATE document set Emprunt = 0 WHERE IdDoc = ?;");
+			st.setInt(1, this.idDoc);
+			
+	        st.executeUpdate();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void retour() {
-		//modifie emprunt -> supprimer la ligne de l'emprunt 
 		
-		//modifie document -> passer à 0 l'emprunt 
+		try {
+			Connection connect = MediathequeData.connexion();
+			
+			PreparedStatement st = connect.prepareStatement("UPDATE document set Emprunt = 0 WHERE IdDoc = ?;");
+			st.setInt(1, this.idDoc);
+			
+	        st.executeUpdate();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

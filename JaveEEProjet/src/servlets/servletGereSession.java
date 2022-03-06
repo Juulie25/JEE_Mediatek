@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import mediatek2022.Mediatheque;
 import utilisateur.UtilisateurMediatek;
@@ -51,17 +52,26 @@ public class servletGereSession extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-       String pseudo = request.getParameter("pseudo");
+        String pseudo = request.getParameter("pseudo");
         String motdepasse = request.getParameter("motdepasse");
         
+        System.out.println(pseudo + " - " + motdepasse);
+        
         UtilisateurMediatek utilisateur = (UtilisateurMediatek) Mediatheque.getInstance().getUser(pseudo, motdepasse);
+        
+
+
         
         if(utilisateur == null) {
         	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaire.jsp");
             d.forward(request, response);
         }else {
         	response.sendRedirect("servletFormulaire");
-        	request.getSession().setAttribute("utilisateur", utilisateur);
+        	
+            HttpSession session = request.getSession(true);
+            session.setAttribute("utilisateur", utilisateur);
+         
+            
         }
     }
 
