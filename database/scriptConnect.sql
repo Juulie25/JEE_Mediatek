@@ -52,7 +52,25 @@ INSERT INTO user(Nom, Prenom, Pseudo, MotDePasse, RoleUser, Age) VALUES ('Ouziri
 
 INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'SpiderMan - No way home','Marvel', 0, 1);
 INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'La petite sirène','Disney', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'Retour vers le futur','Robert Zemeckis', 0, 1);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'Star Wars : L Empire contre attaque','George Lucas', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('DVD', 'Le Seigneur des Anneaux : Le Retour du roi','Peter Jackson', 0, 0);
+
 INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'Le monde ou rien', 'PNL', 0, 0);
 INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'La machine', 'Jul', 0, 0);
-INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Les misérables', 'Victor Hugo', 0, 1);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'Thriller', 'Michael Jackson', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'The Dark Side of the Moon', 'Pink Floyd', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('CD', 'Back in Black', 'AC/DC', 0, 0);
+
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Les misérables', 'Victor Hugo', 0, 0);
 INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Le petit prince', 'Antoine de Saint-Exupéry', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'Don Quichotte', 'Miguel de Cervantes', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'And Then There Were None', 'Agatha Christie', 0, 0);
+INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES ('Livre', 'LThe Da Vinci Code', 'Dan Brown', 0, 0);
+
+
+
+
+
+
+
