@@ -59,12 +59,14 @@
                 <p class="titreDiv">Documents de la Mediatek</p>
                 <table id="listeDocs"> 
                     <tr><th>ID Document</th><th>Type de document</th><th>Titre du document</th><th>Auteur</th><th>Etat</th></tr>
-
+					<%int j = 0;%>
 					<% for(int i = 0; i < documents.size()*6; i = i+6){ %> 
-					 <% if(documents.get(i).disponible()) { %> 
+					 <% if(documents.get(j).disponible()) { %> 
 					 	<tr><th><%=sb.split("/ ")[i]%></th><th><%= sb.split("/ ")[i+1]%></th><th><%=sb.split("/ ")[i+2]%></th><th><%= sb.split("/ ")[i+3]%></th><td><button type="button" class="btn btn-success" disabled>Disponible</button></td></tr>
+					 	<%j++; %>
 					 <%}else{%>
 					 	<tr><th><%=sb.split("/ ")[i]%></th><th><%= sb.split("/ ")[i+1]%></th><th><%=sb.split("/ ")[i+2]%></th><th><%= sb.split("/ ")[i+3]%></th><td><button type="button" class="btn btn-danger" disabled>Emprunté</button></td></tr>
+					 	<%j++; %>
 					 <%} %>
 					 
 					<%}%> 
