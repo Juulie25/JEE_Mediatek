@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import mediatek2022.Mediatheque;
-import utilisateur.UtilisateurMediatek;
+import mediatek2022.Utilisateur;
 
 /**
  * Servlet implementation class servletGereSession
@@ -36,7 +36,6 @@ public class servletGereSession extends HttpServlet {
      */
     public servletGereSession() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -57,10 +56,8 @@ public class servletGereSession extends HttpServlet {
         
         System.out.println(pseudo + " - " + motdepasse);
         
-        UtilisateurMediatek utilisateur = (UtilisateurMediatek) Mediatheque.getInstance().getUser(pseudo, motdepasse);
+        Utilisateur utilisateur = (Utilisateur) Mediatheque.getInstance().getUser(pseudo, motdepasse);
         
-
-
         
         if(utilisateur == null) {
         	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaire.jsp");
@@ -70,8 +67,6 @@ public class servletGereSession extends HttpServlet {
         	
             HttpSession session = request.getSession(true);
             session.setAttribute("utilisateur", utilisateur);
-         
-            
         }
     }
 

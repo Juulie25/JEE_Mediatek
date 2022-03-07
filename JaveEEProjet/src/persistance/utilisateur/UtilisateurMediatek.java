@@ -1,16 +1,18 @@
-package utilisateur;
+package persistance.utilisateur;
 
 import mediatek2022.Utilisateur;
 
 public class UtilisateurMediatek implements Utilisateur{
-
+	
+	private int id;
 	private String nom; 
 	private String prenom;
 	private String pseudo; 
 	private String role; 
 	private int age; 
 		
-	public UtilisateurMediatek(String nomU, String prenomU, String pseudoU, String roleU, int ageU) {
+	public UtilisateurMediatek(int idU, String nomU, String prenomU, String pseudoU, String roleU, int ageU) {
+		this.id = idU;
 		this.nom = nomU; 
 		this.prenom = prenomU; 
 		this.pseudo = pseudoU; 
@@ -33,7 +35,8 @@ public class UtilisateurMediatek implements Utilisateur{
 
 	@Override
 	public Object[] data() {
-		return null;
+		Object[] obj = {id, nom, prenom, pseudo, role, age };
+		return obj;
 	}
 
 	@Override
@@ -41,8 +44,4 @@ public class UtilisateurMediatek implements Utilisateur{
 		return "UtilisateurMediatek [nom=" + nom + ", prenom=" + prenom + ", pseudo=" + pseudo + ", role=" + role
 				+ ", age=" + age + "]";
 	}
-	
-
-	
-
 }

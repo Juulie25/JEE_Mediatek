@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import utilisateur.UtilisateurMediatek;
+import mediatek2022.Utilisateur;
 /**
  * Servlet implementation class sevletFormulaire
  */
@@ -33,7 +33,6 @@ public class servletFormulaire extends HttpServlet {
      */
     public servletFormulaire() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -41,18 +40,18 @@ public class servletFormulaire extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher d;
-		request.setAttribute("utilisateur", request.getSession().getAttribute("utilisateur"));
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
 		
-		UtilisateurMediatek utilisateur = (UtilisateurMediatek) request.getAttribute("utilisateur");
-		
-		if(utilisateur.isBibliothecaire()) {
+		if(user.isBibliothecaire()) {
+			
 			d = request.getRequestDispatcher("./htmlFiles/accueilBibliothecaire.jsp");
 			d.forward(request, response);
 		}else {
+			request.setAttribute("utilisateur",user);
+
 			d = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
 			d.forward(request, response);
 		}
-        
 	}
 
 	/**
@@ -60,7 +59,5 @@ public class servletFormulaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.sendRedirect("servletAjoutDoc");
-  
 	}
-
 }

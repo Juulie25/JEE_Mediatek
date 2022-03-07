@@ -3,15 +3,15 @@ package mediatek2022;
 import java.util.List;
 
 /**
- cette classe reprÃ©sente la mediatheque du point de vue du domaine
+ cette classe représente la mediatheque du point de vue du domaine
  cette classe est un singleton
- elle a un attribut qui fait le lien avec les donnÃ©es persistantes
+ elle a un attribut qui fait le lien avec les données persistantes
  
  LES SERVLETS DOIVENT S'ADRESSER A CETTE CLASSE EXCLUSIVEMENT
  POUR INTERROGER LES DONNEES
 
- beaucoup des mÃ©thodes de Mediatheque sont dÃ©lÃ©guÃ©es Ã  l'attribut de persistance
- qui devra rÃ©percuter ces opÃ©rations sur les donnÃ©es persistantes
+ beaucoup des méthodes de Mediatheque sont déléguées Ã  l'attribut de persistance
+ qui devra répercuter ces opérations sur les données persistantes
 
 */
 /**
@@ -19,7 +19,7 @@ import java.util.List;
  *
  */
 public class Mediatheque {
-// Jean-FranÃ§ois Brette 01/01/2022
+// Jean-François Brette 01/01/2022
 
 // singleton standard ======================== 
 	static {
@@ -32,23 +32,23 @@ public class Mediatheque {
 	private Mediatheque () {}
 // fin - singleton standard ==================
 
-// lien avec les donnÃ©es persistantes +++++++++++++++
+// lien avec les données persistantes +++++++++++++++
 	private PersistentMediatheque data;
 
 	public void setData(PersistentMediatheque data) {
 		if (this.data == null) this.data = data;
 	}
-// fin - lien avec les donnÃ©es persistantes +++++++++
+// fin - lien avec les données persistantes +++++++++
 
 // ********** action sur le document ***********************
 
-	// enregistre l'emprunt par l'abonnÃ© a du document d)
+	// enregistre l'emprunt par l'abonné a du document d)
 
 		public void emprunt (Document d, Utilisateur a) throws Exception {
 			d.emprunt(a);
 		}
 		
-	// enregistre la rÃ©servation par l'abonnÃ© a du document d)
+	// enregistre la réservation par l'abonné a du document d)
 
 		
 
@@ -58,23 +58,23 @@ public class Mediatheque {
 			d.retour();
 		}
 
-// *********************** dÃ©lÃ©gation **********************
+// *********************** délégation **********************
 
-	// renvoie la liste de tous les documents de la bibliothÃ¨que
+	// renvoie la liste de tous les documents de la bibliothèque
 
 	public List<Document> tousLesDocumentsDisponibles() {
 		return data.tousLesDocumentsDisponibles();
 	}
 
 	// renvoie le user de login et passwd 
-	// si pas trouvÃ©, renvoie null
+	// si pas trouvé, renvoie null
 	
 	public Utilisateur getUser (String login, String password) {
 		return data.getUser(login, password);
 	}
 
-	// renvoie le document de numÃ©ro numDocument
-	// si pas trouvÃ©, renvoie null
+	// renvoie le document de numéro numDocument
+	// si pas trouvé, renvoie null
 
 	public Document getDocument(int numDocument) {
 		return data.getDocument(numDocument);
@@ -84,7 +84,15 @@ public class Mediatheque {
 
 	public void ajoutDocument(int type, Object... args ) {
 		data.ajoutDocument(type, args);
-	};
+	}
+	
+	public List<Document> consulterDocuments(){
+		return data.consulterDocuments();
+	}
+	
+	public List<Document> consulterDocumentsEmprunt(String pseudo){
+		return data.consulterDocumentsEmprunt(pseudo);
+	}
 
 }
 

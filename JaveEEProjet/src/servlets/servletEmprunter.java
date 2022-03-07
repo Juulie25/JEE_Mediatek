@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import mediatek2022.Document;
 import mediatek2022.Mediatheque;
-
+import mediatek2022.Utilisateur;
 
 /**
- * Servlet implementation class servletRendre
+ * Servlet implementation class servletEmprunter
  */
-@WebServlet("/servletRendre")
-public class servletRendre extends HttpServlet {
+@WebServlet("/servletEmprunter")
+public class servletEmprunter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public servletRendre() {
+    public servletEmprunter() {
         super();
     }
 
@@ -31,21 +31,25 @@ public class servletRendre extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String docARendre = request.getParameter("nomDocARendre");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		String docAEmprunter = request.getParameter("nomDocAEmprunter");
 		
-		int numDocARendre = Integer.parseInt(docARendre);
+		int numDocAEmprunter = Integer.parseInt(docAEmprunter);
 		
-		Document d = Mediatheque.getInstance().getDocument(numDocARendre);
-		
-		d.retour();
-	     
+		Document d = Mediatheque.getInstance().getDocument(numDocAEmprunter);	
+		Utilisateur u = (Utilisateur) request.getSession().getAttribute("utilisateur");
+        
+        try {
+			d.emprunt(u);
+		} catch (Exception e) {
+			System.err.println("Erreur lors de l'emprunt : " + e);
+		}
+
 	    RequestDispatcher disp = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
 	    disp.forward(request, response);
 	}

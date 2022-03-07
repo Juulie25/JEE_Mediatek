@@ -22,7 +22,6 @@ public class servletAjoutDoc extends HttpServlet {
      */
     public servletAjoutDoc() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -31,8 +30,6 @@ public class servletAjoutDoc extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaireAjoutDoc.jsp");
         d.forward(request, response);
-        
-        
 	}
 
 	/**
@@ -55,10 +52,6 @@ public class servletAjoutDoc extends HttpServlet {
         Mediatheque.getInstance().ajoutDocument(type, titre, auteur, adulte );
         
     	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/accueilBibliothecaire.jsp");
-        d.forward(request, response);
-        
-        
-        
+        d.forward(request, response);   
 	}
-
 }

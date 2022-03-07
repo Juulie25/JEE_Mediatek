@@ -1,15 +1,40 @@
+<%@ page import="mediatek2022.Utilisateur" %>
 
+<%
+	Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+	String pseudo = utilisateur.name(); 
+	
+%>
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Bienvenue à la Médiatek</title>
+  <title>Ajout de document Mediatek2022</title>
   <link rel="stylesheet" href="css/styleAjoutDoc.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+        <nav class="navbar navbar-default">
+ 
+            <ul class="nav navbar-nav navbar-left">
+              <li> <p class="navbar-text">Mediatek </p></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+           		  
+	           	<form action="./servletLogOut" method="post">
+	           		<p style="text-align: center;" ><%=pseudo %><p>
+	           	
+	    			<button type="submit button" class="btn btn-light">Deconnexion</button>
+				</form>
+            </ul>
+
+          </nav>	
 	
-    <h1 class="txt"><u>Ajout de document à la Médiatek</u></h1>
+	
+    <h1 class="txt"><u>Ajout de document �la Mediatek</u></h1>
 
     <form action="./servletAjoutDoc" method="post">
         <div id="formulaire">
@@ -50,19 +75,8 @@
 
 			</div>		         
 		
-            <button type="Ajouter" class="btn btn-primary" id="btnAjout" data-popup-ref="ajoutSuccess">Ajouter</button>
+            <button type="Ajouter" class="btn btn-primary" id="btnAjout" >Ajouter</button>
         </div>
     </form>
-
-    <div class="popup" data-popup-id="ajoutSuccess">
-        <div class="popup-content">
-             <h2>Nouveau document </h2>
-             <p>Vous avez bien ajouté à la Mediatek: </p>
-             <p>Harry Potter JK Rowling</p>
-             <button type="button" class="btn cancel" data-dismiss-popup>Fermer</button>
-        </div>
-    </div>
-
-
 </body>
 </html>

@@ -3,11 +3,13 @@ package mediatek2022;
 import java.util.List;
 
 public interface PersistentMediatheque {
-// Jean-Franï¿½ois Brette 01/01/2022
+// Jean-François Brette 01/01/2022
 	
 	List<Document> tousLesDocumentsDisponibles();
 	Document getDocument(int numDocument);
 	Utilisateur getUser(String login, String password);
 	void ajoutDocument(int type, Object... args );
-
+	List<Document> consulterDocuments();
+	List<Document> consulterDocumentsEmprunt(String pseudo);
+	
 }
