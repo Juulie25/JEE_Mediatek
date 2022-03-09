@@ -28,7 +28,7 @@ public class servletAjoutDoc extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaireAjoutDoc.jsp");
+		RequestDispatcher d = request.getRequestDispatcher("./vueJSP/formulaireAjoutDoc.jsp");
         d.forward(request, response);
 	}
 
@@ -51,7 +51,7 @@ public class servletAjoutDoc extends HttpServlet {
         
         Mediatheque.getInstance().ajoutDocument(type, titre, auteur, adulte );
         
-    	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/accueilBibliothecaire.jsp");
+    	RequestDispatcher d = request.getRequestDispatcher("./vueJSP/accueilBibliothecaire.jsp");
         d.forward(request, response);   
 	}
 }

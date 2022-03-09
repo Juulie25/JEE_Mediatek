@@ -44,12 +44,12 @@ public class servletFormulaire extends HttpServlet {
 		
 		if(user.isBibliothecaire()) {
 			
-			d = request.getRequestDispatcher("./htmlFiles/accueilBibliothecaire.jsp");
+			d = request.getRequestDispatcher("./vueJSP/accueilBibliothecaire.jsp");
 			d.forward(request, response);
 		}else {
 			request.setAttribute("utilisateur",user);
 
-			d = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
+			d = request.getRequestDispatcher("./vueJSP/accueilAbonne.jsp");
 			d.forward(request, response);
 		}
 	}

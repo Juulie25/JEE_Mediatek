@@ -42,7 +42,7 @@ public class servletGereSession extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaire.jsp");
+    	RequestDispatcher d = request.getRequestDispatcher("./vueJSP/formulaire.jsp");
         d.forward(request, response);
     }
 
@@ -60,7 +60,7 @@ public class servletGereSession extends HttpServlet {
         
         
         if(utilisateur == null) {
-        	RequestDispatcher d = request.getRequestDispatcher("./htmlFiles/formulaire.jsp");
+        	RequestDispatcher d = request.getRequestDispatcher("./vueJSP/formulaire.jsp");
             d.forward(request, response);
         }else {
         	response.sendRedirect("servletFormulaire");

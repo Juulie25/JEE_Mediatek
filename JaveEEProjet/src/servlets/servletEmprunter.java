@@ -50,7 +50,7 @@ public class servletEmprunter extends HttpServlet {
 			System.err.println("Erreur lors de l'emprunt : " + e);
 		}
 
-	    RequestDispatcher disp = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
+	    RequestDispatcher disp = request.getRequestDispatcher("./vueJSP/accueilAbonne.jsp");
 	    disp.forward(request, response);
 	}
 

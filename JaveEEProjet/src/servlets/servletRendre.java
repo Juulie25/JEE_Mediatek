@@ -46,7 +46,7 @@ public class servletRendre extends HttpServlet {
 		
 		d.retour();
 	     
-	    RequestDispatcher disp = request.getRequestDispatcher("./htmlFiles/accueilAbonne.jsp");
+	    RequestDispatcher disp = request.getRequestDispatcher("./vueJSP/accueilAbonne.jsp");
 	    disp.forward(request, response);
 	}
 
