@@ -25,7 +25,7 @@ public class servletFormulaire extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("**chargement de la servlet demo**");
+        System.out.println("**Lancement du formulaire**");
         super.init();
     }   
     /**

@@ -28,12 +28,13 @@ public class MediathequeData implements PersistentMediatheque {
 	@Override
 	public List<Document> tousLesDocumentsDisponibles() {
 		Connection connect;
+		Statement st;
 		ArrayList<Document> listeDocs = new ArrayList<>();
 		
 		try {
 			connect = DataManage.connexion();
 			String allDocuments = "SELECT * FROM document WHERE emprunt=0;"; 
-			Statement st = connect.createStatement();
+			st = connect.createStatement();
 			ResultSet docs = st.executeQuery(allDocuments);
 			
 			
@@ -47,26 +48,29 @@ public class MediathequeData implements PersistentMediatheque {
 				
 				listeDocs.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 			}
+			
+			st.close();
+			connect.close();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution de la requète " + e);
 		} 
 		
 		return listeDocs;
-		
 	}
 
 	// va récupérer le User dans la BD et le renvoie
 	// si pas trouvé, renvoie null
 	@Override
 	public UtilisateurMediatek getUser(String login, String password) {
-
+		Connection connect;
+		PreparedStatement st;
 		UtilisateurMediatek utilisateur = null;
 		
 		try {
-			Connection connect = DataManage.connexion();
+			connect = DataManage.connexion();
 
 			String getUser = "SELECT * FROM user WHERE Pseudo=? AND MotDePasse=?;"; 
-			PreparedStatement st = null;
 			st = connect.prepareStatement(getUser);
 			st.setString(1, login);
 			st.setString(2, password);
@@ -84,6 +88,10 @@ public class MediathequeData implements PersistentMediatheque {
 				utilisateur = new UtilisateurMediatek(id, nom, prenom, pseudo, role, age);
 				System.out.println(utilisateur);
 			}
+			
+			st.close();
+			connect.close();
+			
 		} catch (SQLException | ClassNotFoundException e) {
 			System.err.println("Erreur lors de l'execution de la requête " + e);
 		}
@@ -98,10 +106,11 @@ public class MediathequeData implements PersistentMediatheque {
 	public Document getDocument(int numDocument) {
 		Document document = null; 
 		Connection connect;
+		PreparedStatement st; 
+		
 		try {
 			connect = DataManage.connexion();
 			String getDoc = "SELECT * FROM document WHERE IdDoc=?"; 
-			PreparedStatement st = null;
 			st = connect.prepareStatement(getDoc);
 			st.setInt(1, numDocument);
 					
@@ -116,6 +125,10 @@ public class MediathequeData implements PersistentMediatheque {
 				
 				document = new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte );
 			}
+			
+			st.close();
+			connect.close();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution de la requête " + e);
 		} 
@@ -124,6 +137,8 @@ public class MediathequeData implements PersistentMediatheque {
 
 	@Override
 	public void ajoutDocument(int type, Object... args) {	
+		Connection connect;
+		PreparedStatement st;
 		String typeNom = "";
 		
 		switch(type) {
@@ -136,17 +151,20 @@ public class MediathequeData implements PersistentMediatheque {
 			System.out.println(args[i]);
 			}
 		
-		Connection connect;
+		
 		try {
 			connect = DataManage.connexion();
 			
-			PreparedStatement st = connect.prepareStatement("INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES (?, ?, ?, 0, ?);");
+			st = connect.prepareStatement("INSERT INTO document(TypeDoc, TitreDoc, AuteurDoc, Emprunt, Adulte) VALUES (?, ?, ?, 0, ?);");
 			st.setString(1, typeNom);
 			st.setString(2, (String) args[0]);
 			st.setString(3, (String) args[1]);
 			st.setBoolean(4, (boolean) args[2]);
 
 	        st.executeUpdate();
+			
+	        st.close();
+			connect.close();
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution de la requete " + e);
@@ -158,10 +176,12 @@ public class MediathequeData implements PersistentMediatheque {
 	public List<Document> consulterDocuments() {
 		List<Document> listeDocs = new ArrayList<>();
 		Connection connect;
+		Statement st; 
+		
 		try {
 			connect = DataManage.connexion();
 			String allDocuments = "SELECT * FROM document"; 
-			Statement st = connect.createStatement();
+			st = connect.createStatement();
 			ResultSet docs= st.executeQuery(allDocuments);
 			
 			while(docs.next()) {
@@ -174,6 +194,10 @@ public class MediathequeData implements PersistentMediatheque {
 				
 				listeDocs.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 			}
+			
+			st.close();
+			connect.close();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution : " + e);
 		}
@@ -186,12 +210,13 @@ public class MediathequeData implements PersistentMediatheque {
 	public List<Document> consulterDocumentsEmprunt(String pseudo){
 		List<Document> listeDocsEmprunt = new ArrayList<>();
 		Connection connect;
+		PreparedStatement st; 
+		
 		try {
 			connect = DataManage.connexion();
 			
 			String allDocuments = "SELECT d.IdDoc, d.TypeDoc, d.TitreDoc, d.AuteurDoc, d.Emprunt, d.Adulte FROM emprunt e,user u, document d WHERE e.IdUser = u.IdUser AND e.IdDoc = d.IdDoc AND u.Pseudo=?;";
 
-			PreparedStatement st = null;
 			st = connect.prepareStatement(allDocuments);
 			st.setString(1, pseudo);
 			
@@ -207,6 +232,10 @@ public class MediathequeData implements PersistentMediatheque {
 				
 				listeDocsEmprunt.add(new DocumentsMediatek(idDoc, typeDoc, titreDoc, auteurDoc, emprunt, adulte ));
 			}
+			
+			st.close();
+			connect.close();
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution : " + e);
 		} 

@@ -61,12 +61,15 @@ public class DocumentsMediatek implements Document {
 	@Override
 	public void emprunt(Utilisateur u) throws Exception {
 		boolean contenuAdulte = false; 
+		Connection connect; 
+		Statement st; 
+		
         try {
-			Connection connect = connexion();
+			connect = connexion();
 
             String getDoc = "SELECT * FROM document WHERE IdDoc ="+this.idDoc+";";
             
-            Statement st = connect.createStatement();        
+            st = connect.createStatement();        
             ResultSet doc = st.executeQuery(getDoc);
             
             while(doc.next()) {
@@ -90,6 +93,10 @@ public class DocumentsMediatek implements Document {
             else {
                 return; 
             }
+            
+            st.close();
+            connect.close();
+            
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Erreur lors de l'execution d'une requête : " + e);
         }
@@ -97,10 +104,13 @@ public class DocumentsMediatek implements Document {
 
 	@Override
 	public void retour() {
+		Connection connect; 
+		PreparedStatement st;
+		
 		try {
-			Connection connect = connexion();
+			connect = connexion();
 			
-			PreparedStatement st = connect.prepareStatement("UPDATE document set Emprunt = 0 WHERE IdDoc = ?;");
+			st = connect.prepareStatement("UPDATE document set Emprunt = 0 WHERE IdDoc = ?;");
 			st.setInt(1, this.idDoc);
 			
 			PreparedStatement sp = connect.prepareStatement("DELETE FROM emprunt WHERE IdDoc = ?;");
@@ -109,6 +119,8 @@ public class DocumentsMediatek implements Document {
 	        st.executeUpdate();
 			sp.executeUpdate();
 			
+			st.close();
+            connect.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			System.err.println("Erreur lors de l'execution d'une requête : " + e);
 		}

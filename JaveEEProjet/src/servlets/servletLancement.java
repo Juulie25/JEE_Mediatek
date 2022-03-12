@@ -17,7 +17,7 @@ import mediatek2022.Utilisateur;
  * Servlet implementation class servletGereSession
  */
 @WebServlet("/servletGereSession")
-public class servletGereSession extends HttpServlet {
+public class servletLancement extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     @Override
@@ -27,14 +27,14 @@ public class servletGereSession extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("**chargement de la servlet demo**");
+        System.out.println("**Lancement du serveur**");
         super.init();
     }
     
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public servletGereSession() {
+    public servletLancement() {
         super();
     }
 

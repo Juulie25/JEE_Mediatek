@@ -86,9 +86,13 @@ public class Mediatheque {
 		data.ajoutDocument(type, args);
 	}
 	
+	// renvoie la liste des documents de la mediatheque 
+	
 	public List<Document> consulterDocuments(){
 		return data.consulterDocuments();
 	}
+	
+	// renvoie la liste des documents empruntés par un utilisateur 
 	
 	public List<Document> consulterDocumentsEmprunt(String pseudo){
 		return data.consulterDocumentsEmprunt(pseudo);
